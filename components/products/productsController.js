@@ -1,4 +1,4 @@
-const { list } = require('../models/services/productsService');
+const { list } = require('./productsService');
 
 exports.list = async (req, res, next) => {
   const products = await list();
