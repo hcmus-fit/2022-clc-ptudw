@@ -7,7 +7,6 @@ require('dotenv').config();
 const debug = require('debug')('vegetmarket:server');
 const http = require('http');
 const app = require('../app');
-const {connect, db} = require('../models/db');
 
 /**
  * Get port from environment and store in Express.
@@ -18,7 +17,7 @@ app.set('port', port);
 
 
 (async () => {
-  await connect();
+  //await connect();
   console.log('Connected correctly to server');
   /**
    * Create HTTP server.

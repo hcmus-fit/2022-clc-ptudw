@@ -1,5 +1,5 @@
-const { db } = require('../../models/db');
+const { products } = require('../../models');
 
 exports.list = async () => {
-  return await db().collection('products').find().toArray();
+  return await products.findAll({raw: true});
 };
