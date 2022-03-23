@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+  function start(finished) {
+    setTimeout(function () {
+      console.log(new Date(), 'Done preparation');
+      finished();
+    }, 1000);
+  }
+
+  function chop(finished) {
+    setTimeout(function () {
+      console.log(new Date(), 'The fruit has been chopped');
+      finished();
+    }, 1000);
+  }
+
+  function pour(finished) {
+    setTimeout(function () {
+      console.log(new Date(), 'The fruit has been poured to the bowl');
+      finished();
+    }, 1000);
+  }
+
+  function eat(finished) {
+    setTimeout(function () {
+      console.log(new Date(), 'Eat all the fruit');
+      finished();
+    }, 1000);
+  }
+
+  // Promisify
+  const startPromise = () => new Promise((resolve, reject) => {
+    start(resolve);
+  });
+  const chopPromise = () => new Promise((resolve, reject) => {
+    chop(resolve);
+  });
+  const pourPromise = () => new Promise((resolve, reject) => {
+    pour(resolve);
+  });
+  const eatPromise = () => new Promise((resolve, reject) => {
+    eat(resolve);
+  });
+  console.log(new Date(), 'Start');
+  // startPromise()
+  //   .then(() => {
+  //     return chopPromise();
+  //   })
+  //   .then(() => {
+  //     return pourPromise();
+  //   })
+  //   .then(() => {
+  //     return eatPromise();
+  //   })
+  //   .then(() => {
+  //     console.log('done');
+  //   });
+  async function doItNow() {
+    await startPromise();
+    await chopPromise();
+    await pourPromise();
+    await eatPromise();
+    console.log('done');
+  }
+
+  doItNow();
+
+  // start(function () {
+  //     chop(function () {
+  //         pour(function () {
+  //             eat(function () {
+  //                 console.log('finished');
+  //             });
+  //         });
+  //     });
+  // });
+</script>
+</body>
+</html>
