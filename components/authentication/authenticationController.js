@@ -1,6 +1,15 @@
 const authenticationService = require('./authenticationService');
 exports.register = async function (req, res) {
-  await authenticationService.register(req.body.email, req.body.password);
+  const { email, password } = req.body;
+  const user = await authenticationService.isUserExist(email);
+  if (user) {
+    res.render('authentication/register', {
+      title: 'Register',
+      error: 'User already exist',
+    });
+    return;
+  }
+  await authenticationService.register(email, password);
   // login after registration
 
   // redirect to home
@@ -27,3 +36,8 @@ exports.logout = function (req, res) {
   req.logout();
   res.redirect('/');
 };
+
+exports.checkEmailExist= async (req, res) => {
+  const user = await authenticationService.isUserExist(req.params.email);
+  res.json(!!user);
+}

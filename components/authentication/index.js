@@ -12,5 +12,6 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.get('/logout', authenticationController.logout);
+router.get('/api/check-email-exist/:email', authenticationController.checkEmailExist);
 
 module.exports = router;

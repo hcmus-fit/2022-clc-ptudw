@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
+const { engine, create } = require('express-handlebars');
+const expressHandlebarsSections = require('express-handlebars-sections');
 
 const passport = require('./components/authentication/passport');
 var indexRouter = require('./routes/index');
@@ -15,7 +17,13 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.engine('handlebars', engine({
+  defaultLayout: 'main',
+  helpers: {
+    section: expressHandlebarsSections()
+  }
+}));
+app.set('view engine', 'handlebars');
 
 app.use(logger('dev'));
 app.use(express.json());

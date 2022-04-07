@@ -10,6 +10,15 @@ exports.register = function (email, password) {
   });
 };
 
+exports.isUserExist = function (email) {
+  return users.findOne({
+    where: {
+      email: email,
+    },
+    raw: true,
+  });
+};
+
 exports.verifyUser = async function (email, password) {
   const user = await users.findOne({
     where: {
